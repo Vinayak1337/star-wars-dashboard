@@ -46,9 +46,9 @@ const Launch = () => {
 		films.length
 	);
 
-	// useEffect(() => {
-	// 	if (hasAllData) navigateToPeople();
-	// }, [hasAllData]);
+	useEffect(() => {
+		if (hasAllData) navigateToPeople();
+	}, [hasAllData]);
 
 	return (
 		<StyledView onLayout={loadData}>
