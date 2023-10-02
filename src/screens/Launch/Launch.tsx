@@ -21,9 +21,7 @@ import ThemeBtn from '../../components/ThemeBtn/ThemeBtn';
  */
 const Launch = () => {
 	const navigation = useNavigation();
-	const { films, planets, starships, popularPeople } = useRTKSelector(
-		state => state.appReducer
-	);
+	const popularPeople = useRTKSelector(state => state.appReducer.popularPeople);
 
 	const dispatch = useRTKDispatch();
 
@@ -39,16 +37,11 @@ const Launch = () => {
 			screen: ROUTES.PEOPLE
 		});
 
-	const hasAllData = !!(
-		popularPeople.length &&
-		planets.length &&
-		starships.length &&
-		films.length
-	);
+	const hasFetchedData = !!popularPeople.length;
 
 	useEffect(() => {
-		if (hasAllData) navigateToPeople();
-	}, [hasAllData]);
+		if (hasFetchedData) navigateToPeople();
+	}, [hasFetchedData]);
 
 	return (
 		<StyledView onLayout={loadData}>
@@ -64,7 +57,7 @@ const Launch = () => {
 					</Description>
 				</TextWrapper>
 
-				{!hasAllData ? (
+				{!hasFetchedData ? (
 					<ActivityIndicator
 						animating={true}
 						color={Theme.colors.secondary[1]}
